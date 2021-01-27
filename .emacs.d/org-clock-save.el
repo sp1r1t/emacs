@@ -1,0 +1,2 @@
+;; org-clock-save.el - jkonrath-ThinkStation-P330 at <2021-01-27 Mi 11:13>
+(setq org-clock-stored-history '(("/home/jkonrath/Dropbox/Documents/Orgzly/db.org" . 13253) ("/home/jkonrath/Dropbox/Documents/Orgzly/db.org" . 13179) ("/home/jkonrath/Dropbox/Documents/Orgzly/db.org" . 129407) ("/home/jkonrath/Dropbox/Documents/Orgzly/db.org" . 31797) ("/home/jkonrath/Dropbox/Documents/Orgzly/db.org" . 52225)))
