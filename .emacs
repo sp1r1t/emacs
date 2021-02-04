@@ -28,6 +28,9 @@
 
 ")
 
+;; no bell
+(setq visible-bell t)
+
 (add-to-list 'load-path "~/.emacs.d/plugins")
 ;;(load "php-mode")
 ;;(load "lorem-ipsum.el")
