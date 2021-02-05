@@ -29,7 +29,8 @@
 ")
 
 ;; no bell
-(setq visible-bell t)
+;; (setq visible-bell t) ;; just visual bell
+(setq ring-bell-function 'ignore)
 
 (add-to-list 'load-path "~/.emacs.d/plugins")
 ;;(load "php-mode")
