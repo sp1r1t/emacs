@@ -166,6 +166,7 @@ alias moc="mocp && ~/.moc/moc_clear_song"
 #alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
 alias pd="popd"
 alias sc="systemctl"
+alias r2="r2de2"
 
 # # set transparency
 # #[ -n "$XTERM_VERSION" ] && transset 0.9 -a >/dev/null
