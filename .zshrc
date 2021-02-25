@@ -1,15 +1,8 @@
-# The following lines were added by compinstall
-
-
-# old
-#zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
-#zstyle :compinstall filename '/home/jinn/.zshrc'
-#autoload -Uz compinit
-#compinit
-
 #=========================================
 # Auto-completions
 #=========================================
+#echo "setting auto clompletions"
+
 autoload -Uz compinit; compinit
 autoload -U colors && colors
 zstyle ':completion:*' completer _expand _complete _correct _approximate
@@ -37,12 +30,14 @@ zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' force-list always
 zstyle ':completion:*:processes' command "ps -au${USER}"
 #zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin
-zstyle ':completion:*:sudo:*' /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin
+zstyle ':completion:*:sudo:*' /bin /usr/bin /usr/local/bin /sbin /usr/sbin /usr/local/sbin /usr/games /usr/local/games /home/jinn/.bin /home/jinn/.go/bin
 
 
 #=========================================
 # Options
 #=========================================
+#echo "setting options"
+
 setopt correct                  #correct mistakes
 #setopt auto_list                # list choice on ambiguous command
 setopt listtypes                # %1 killed. will show up exactly when it is killed.
@@ -59,6 +54,8 @@ setopt hist_ignore_all_dups     # when runing a command several times, only stor
 setopt hist_reduce_blanks       # reduce whitespace in history
 setopt hist_ignore_space        # do not remember commands starting with space
 
+
+#echo "setting history config"
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -66,10 +63,27 @@ setopt appendhistory autocd nomatch notify prompt_subst share_history
 unsetopt beep
 bindkey -e
 
-plugins=(last-working-dir colored-man-pages)
 
-#bindkey "â" backward-word
-#bindkey "æ" forward-word
+# Jinn's customization
+#echo "setting colors"
+
+autoload -U colors && colors
+# some colors
+reset="%{%F{reset}%}"
+white="%{%F{white}%}"
+gray="%{%F{gray}%}"
+green="%{%F{green}%}"
+red="%{%F{red}%}"
+yellow="%{%F{yellow}%}"
+blue="%{%F{blue}%}"
+cyan="%{%F{cyan}%}"
+
+# dir colors
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+#echo "reading functions"
 
 # archive handling
 lsarchive() {
@@ -89,29 +103,11 @@ lsarchive() {
     fi
 }
 
-
-# Jinn's customization
-autoload -U colors && colors
-# some colors
-reset="%{%F{reset}%}"
-white="%{%F{white}%}"
-gray="%{%F{gray}%}"
-green="%{%F{green}%}"
-red="%{%F{red}%}"
-yellow="%{%F{yellow}%}"
-blue="%{%F{blue}%}"
-cyan="%{%F{cyan}%}"
-
-# dir colors
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-fi
-
 # prompt_char
 # changes the prompt char to ± if the current dir is a git repo
 function prompt_char {
     git branch >/dev/null 2>/dev/null && echo '±' && return 
-    echo '$'
+    echo '#'
 }
 
 # git_branch
@@ -124,6 +120,17 @@ function git_branch {
     echo " "
 }
 
+man() {
+    env LESS_TERMCAP_mb=$'\E[01;31m' \
+    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+    LESS_TERMCAP_me=$'\E[0m' \
+    LESS_TERMCAP_se=$'\E[0m' \
+    LESS_TERMCAP_so=$'\E[38;5;246m' \
+    LESS_TERMCAP_ue=$'\E[0m' \
+    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+    man "$@"
+}
+
 function cmd_fail {
     if [ "`echo $?`" -ne "0" ]; then
 	echo ":( "
@@ -131,14 +138,7 @@ function cmd_fail {
 }
 
 PROMPT='[%{$fg[blue]%}%n$white@$cyan%m$reset:%~]$(prompt_char) '
-RPROMPT='$(cmd_fail)$(git_branch)%T' 
-
-path+=~/skripte
-
-
-# bash backward kill behaviour
-autoload -U select-word-style
-select-word-style bash
+RPROMPT='$(cmd_fail)$(git_branch)%T'
 
 # ls colors
 #eval `dircolors`
@@ -146,6 +146,7 @@ select-word-style bash
 #zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # aliases
+#echo "setting aliases"
 alias ls='ls -h --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -154,8 +155,8 @@ alias ai='sudo apt-get install'
 alias asr='apt-cache search'
 alias ash='apt-cache show'
 alias sudo='sudo '
-alias ll='ls -alh'
-alias l='ls -lh'
+alias ll='ls -alhN'
+alias l='ls -lhN'
 alias s="sudo su -"
 alias pn="ping 8.8.8.8"
 alias pu="ping web.de"
@@ -164,34 +165,69 @@ alias tor="/usr/src/tor/tor-browser_en-US/start-tor-browser"
 alias m="mplayer"
 alias moc="mocp && ~/.moc/moc_clear_song"
 #alias man="TERMINFO=~/.terminfo/ LESS=C TERM=mostlike PAGER=less man"
+alias violet="/usr/lib/jvm/java-6-openjdk-amd64/bin/java -jar /usr/progs/violetumleditor-2.0.0.jar"
 alias pd="popd"
+#alias ant="/usr/src/apache-ant-1.7.1/bin/ant"
+alias cp="cp -r"
+alias pacman="sudo pacman"
+alias wifi-menu="sudo wifi-menu"
+#alias xterm="xterm & sleep .2s && transset-df 0.9 -a"
+alias ec="emacsclient"
 alias sc="systemctl"
-alias r2="r2de2"
+alias ntc="netctl"
+alias scp="echo ey snorty, you should use rsync...   "
+alias k3=kid3-qt
+alias pdflatex=pdflatexcolor.sh
+alias osmquery=~/vars/bac/overpass/my_query.sh
+alias btc=bluetoothctl
 
-# # set transparency
-# #[ -n "$XTERM_VERSION" ] && transset 0.9 -a >/dev/null
+# set transparency
+#echo "setting transparency"
+#[ -n "$XTERM_VERSION" ] && transset-df 0.9 -a >/dev/null
 
-# # evironment variables
-# export HS='alsa_output.usb-047f_c001-00-U0x47f0xc001.analog-stereo'
-# export SP='alsa_output.pci-0000_00_1b.0.analog-stereo'
-# export EDITOR='emacsclient'
-# export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/scripts
+# evironment variables
+#echo "exporting environment"
+export HS='alsa_output.usb-047f_c001-00-U0x47f0xc001.analog-stereo'
+export SP='alsa_output.pci-0000_00_1b.0.analog-stereo'
+export EDITOR='/usr/bin/emacsclient -c'
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:~/.bin:~/skripte
+#export ANT_HOME=/usr/src/apache-ant-1.7.1
+export CHROME_BIN=/usr/bin/chromium
 
+# evn var for overpass api
+export EXEC_DIR=~/vars/bac/overpass/exec_dir
+export DB_DIR=~/vars/bac/overpass/db_dir
+export PLANET_DIR=~/vars/bac/overpass/planet_dir
+export PLANET_FILE=$PLANET_DIR/planet.osm.bz2
+export REPLICATE_DIR=~/vars/bac/overpass/replicate_dir
+
+#echo "setting the rest"
 # turn off XOFF/XON
 stty -ixon
 
+# bash backward kill behaviour
+autoload -U select-word-style
+select-word-style bash
 
-# durchblicker
-MYDBWCLIENTCRT=`cat ~/certs/dbwrapper/mydbwrapper_julian_201811221228.crt`
-MYDBWCLIENTKEY=`cat ~/certs/dbwrapper/mydbwrapper_julian_201811221228.key`
-MYDBWCLIENTPW=`cat ~/certs/dbwrapper/mydbwrapper_julian_201811221228.pw`
-export MYDBWCLIENTCRT
-export MYDBWCLIENTKEY
-export MYDBWCLIENTPW
-export NODE_ENV=development
+# gpg
+GPG_TTY=$(tty)
+export GPG_TTY
 
-# NVM config
+# android studio / ionic
+# export ANDROID_HOME=/home/jinn/programs/android/sdk
+# export ANDROID_SDK_ROOT=/home/jinn/programs/android/sdk
+
+# syntax highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# envs to fast access directories
+# export CA=/home/jinn/progging/js/coursera/angular/conFusion
+
+# start ssh agent
+eval "$(ssh-agent -s)" > /dev/null
+ssh-add ~/.ssh/github_nokey > /dev/null 2>&1
+
+# nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-fpath=(/home/jkonrath/.devenv/completion/zsh $fpath) && compinit
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
