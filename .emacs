@@ -502,6 +502,9 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; set font-size (160 is 16pt)
+(set-face-attribute 'default nil :height 150)
+
 
 ;(setq org-todo-keyword-faces
 ;      '(("TODO" . "#30419C") ("STARTED" . "green")
