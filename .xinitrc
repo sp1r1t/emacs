@@ -34,7 +34,8 @@ xrandr --setprovideroutputsource modesetting NVIDIA-0
 #xrandr --output LVDS1 --primary --mode 1280x720 --pos 1920x571 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI2 --off --output VGA1 --off --output VIRTUAL1 --off
 #xrandr --auto --output LVDS1 --right-of HDMI1 --auto --primary
 #~/.screenlayout/screen-setup.sh
-xrandr --output HDMI-A-0 --auto --left-of DisplayPort-0
+#xrandr --output HDMI-A-0 --auto --left-of DisplayPort-0
+~/.screenlayout/desk-setup.sh
 
 exec awesome # start awesome
 #exec fluxbox
