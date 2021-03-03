@@ -162,8 +162,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/Dropbox/Documents/Orgzly/db.org")))
- '(package-selected-packages (quote (lua-mode lorem-ipsum org))))
+ '(org-agenda-files '("~/Dropbox/Documents/Orgzly/db.org"))
+ '(package-selected-packages '(notmuch lua-mode lorem-ipsum org))
+ '(send-mail-function 'sendmail-send-it))
 
 ;; tern
 (autoload 'tern-mode "tern.el" nil t)
@@ -323,7 +324,10 @@
 
 ;; notmuch
 (autoload 'notmuch "notmuch" "notmuch mail" t)
-
+(setq message-kill-buffer-on-exit t)
+(setq mail-specify-envelope-from t)
+(setq notmuch-fcc-dirs "[Gmail]Sent Mail") ; stores sent mail to the specified directory
+(setq message-directory "[Gmail]Drafts") ; stores postponed messages to the specified directory
 
 ;;                                           _
 ;;  ___  _ __ __ _       _ __ ___   ___   __| | ___
