@@ -190,7 +190,7 @@ alias btc=bluetoothctl
 export HS='alsa_output.usb-047f_c001-00-U0x47f0xc001.analog-stereo'
 export SP='alsa_output.pci-0000_00_1b.0.analog-stereo'
 export EDITOR='/usr/bin/emacsclient -c'
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:~/.bin:~/skripte
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:~/.bin:~/skripte:~/.local/bin
 #export ANT_HOME=/usr/src/apache-ant-1.7.1
 export CHROME_BIN=/usr/bin/chromium
 
@@ -224,10 +224,17 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # export CA=/home/jinn/progging/js/coursera/angular/conFusion
 
 # start ssh agent
-eval "$(ssh-agent -s)" > /dev/null
-ssh-add ~/.ssh/github_nokey > /dev/null 2>&1
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+    ssh-add ~/.ssh/github_nokey > /dev/null 2>&1
+    ssh-add ~/.ssh/id_cwc > /dev/null 2>&1
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+

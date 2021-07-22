@@ -163,8 +163,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(notmuch-search-oldest-first nil)
- '(org-agenda-files '("~/Dropbox/Documents/Orgzly/db.org"))
- '(package-selected-packages '(notmuch lua-mode lorem-ipsum org))
+ '(org-agenda-files '("~/Dropbox/Documents/Orgzly/cwc-website.org"))
+ '(package-selected-packages '(org-super-agenda notmuch lua-mode lorem-ipsum org))
  '(send-mail-function 'sendmail-send-it))
 
 ;; tern
@@ -356,7 +356,14 @@
 
 ;;(setq org-agenda-files (list "~/Dropbox/Documents/Orgzly/db.org"
 ;;                             "~/org/linuxlog.org"))
-(setq org-agenda-files (list "~/Dropbox/Documents/Orgzly/db.org"))
+(setq org-agenda-files (list "~/Dropbox/Documents/Orgzly/cwc-website.org"
+                             "~/Dropbox/Documents/Orgzly/7bit.org"
+                             "~/Dropbox/Documents/Orgzly/johanna.org"
+                             "~/Dropbox/Documents/Orgzly/diatools.org"
+                             "~/Dropbox/Documents/Orgzly/inbox.org"
+                             "~/Dropbox/Documents/Orgzly/job.org"
+                             "~/Dropbox/Documents/Orgzly/ams.org"
+                             ))
 ;;(setq org-agenda-files (list "~/Dropbox/Documents/Orgzly"))
 ;;(setq org-agenda-files (list "~/Org"))
   
@@ -477,6 +484,9 @@
   (apply orig-fun extension subtreep pub-dir nil))
 (advice-add 'org-export-output-file-name :around #'org-export-output-file-name-modified)
 
+;; remove validation link on bottom of html export
+(setq org-html-validation-link nil)
+
 
 ;; mobile sync push
 ;; (defvar org-mobile-push-timer nil
@@ -536,6 +546,10 @@
 
 ;; enbale easy-templates (https://www.reddit.com/r/emacs/comments/ad68zk/get_easytemplates_back_in_orgmode_92/)
 (require 'org-tempo)
+
+;; super agend
+(setq org-super-agenda-mode t)
+
 
 
 ;; _            
