@@ -426,7 +426,7 @@
 
 ;;; org mode todo keywords
 (setq org-todo-keywords
-      '((sequence "TODO(t)" "UPTO(u)" "NEXT(n)" "WAITING(w)" "DELEGATED(g)" "|" "DONE(d)" "CANCELED(c)")))
+      '((sequence "TODO(t)" "UPTO(u)" "NEXT(n)" "WAITING(w)" "DELEGATED(g)" "|" "DONE(d)" "CANCELED(c)" "DOCUMENTATION(s)")))
 
 ;; org mode, associate pdf with evince
 (eval-after-load "org"
