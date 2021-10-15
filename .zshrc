@@ -137,7 +137,7 @@ function cmd_fail {
     fi
 }
 
-PROMPT='[%{$fg[blue]%}%n$white@$cyan%m$reset:%~]$(prompt_char) '
+PROMPT='[%{$fg[green]%}%n$white@$cyan%m$reset:%~]$(prompt_char) '
 RPROMPT='$(cmd_fail)$(git_branch)%T'
 
 # ls colors
@@ -228,6 +228,7 @@ if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
     #ssh-add ~/.ssh/github_nokey > /dev/null 2>&1
     ssh-add ~/.ssh/id_rsa_nokey > /dev/null 2>&1
+    ssh-add ~/.ssh/id_jk_parknb > /dev/null 2>&1
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
@@ -237,4 +238,16 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+
+
+
+
+
+
+
+
+
+
 
