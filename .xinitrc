@@ -37,6 +37,10 @@ xrandr --setprovideroutputsource modesetting NVIDIA-0
 #xrandr --output HDMI-A-0 --auto --left-of DisplayPort-0
 ~/.screenlayout/desk-setup.sh
 
+# gnome keyring
+eval $(gnome-keyring-daemon --start)
+export SSH_AUTH_SOCK
+
 exec awesome # start awesome
 #exec fluxbox
 #exec gnome-session
