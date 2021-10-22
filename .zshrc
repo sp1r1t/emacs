@@ -228,6 +228,7 @@ if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
     ssh-add ~/.ssh/github_nokey > /dev/null 2>&1
     ssh-add ~/.ssh/id_cwc > /dev/null 2>&1
+    ssh-add ~/.ssh/id_jk_parknb > /dev/null 2>&1
 fi
 if [[ ! "$SSH_AUTH_SOCK" ]]; then
     source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
