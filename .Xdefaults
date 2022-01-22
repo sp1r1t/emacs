@@ -3,7 +3,7 @@ URxvt.scrollBar: false
 URxvt.foreground: white
 URxvt.background: black
 URxvt.secondaryScroll: true
-URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=14
+URxvt.font: xft:Bitstream Vera Sans Mono:pixelsize=12
 URxvt.perl-ext-common: default,matcher,tabbed
 URxvt.urlLauncher: firefox
 URxvt.matcher.button: 1
